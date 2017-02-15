@@ -1,0 +1,26 @@
+{
+  "name": "ogvpoc",
+  "version": "1.0.0",
+  "description": "A POC using library https://github.com/brion/ogv.js",
+  "main": "index.js",
+  "dependencies": {
+    "ogv": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcoMedrano/ogvpoc.git"
+  },
+  "keywords": [
+    "OGV"
+  ],
+  "author": "Marco Medrano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarcoMedrano/ogvpoc/issues"
+  },
+  "homepage": "https://github.com/MarcoMedrano/ogvpoc#readme"
+}
