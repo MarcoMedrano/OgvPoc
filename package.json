@@ -2,8 +2,10 @@
   "name": "ogvpoc",
   "version": "1.0.0",
   "description": "A POC using library https://github.com/brion/ogv.js",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
+    "express": "^4.14.1",
+    "jquery": "^3.1.1",
     "ogv": "^1.3.0"
   },
   "devDependencies": {},

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+
+    <script src="node_modules/ogv/dist/ogv.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules\ogv\dist\ogv-support.js"></script>
+</head>
+<body style="padding: 20px; font-family: 'Comic Sans MS'; font-size: 110%;">
+<br>
+<div>
+    <h2>Files</h2><br>
+    <label><input type='radio' name='file' value='/res/mpthreetest.ogg' >/res/mpthreetest.ogg</label><br>
+    <label><input type='radio' name='file' value='/res/Hydrate-Kenny_Beltrey.ogg' checked>/res/Hydrate-Kenny_Beltrey.ogg</label><br>
+</div>
+<div id='container'></div>
+<br><br>
+<button id='playstop' onclick="play()" type="button" autofocus="autofocus" style="padding: 5px; font-size: 140%;">►</button>
+<button id='speedDown' onclick="speedDown()" type="button" style="padding: 5px; font-size: 140%;">«</button>
+<span id='speedValue'>100%</span>
+<button id='speedUp' onclick="speedUp()" type="button" style="padding: 5px; font-size: 140%;">»</button>
+<h4>Time:</h4><span id='elapsedTime'>0</span>s
+<h4>Reported Time By Player:</h4><span id='reportedTime'>0</span>s
+
+<script>
+    if (!OGVCompat.supported('OGVPlayer')) { console.warn('OGV not supported') };
+    var playing = false;
+    var speed = 1.0;
+    var elapsedTime=0;
+    var elapsedTimeIntervalId = -1;
+    var player = new OGVPlayer();
+
+    var playStopButton = $("#playstop");
+    var speedUpButton = $('button[id="speedUp"]');
+    var speedValueSpan = $('span[id="speedValue"]');
+    var speedDownButton = $('button[id="speedDown"]');
+    var elapsedTimeSpan = $('span[id="elapsedTime"]');        
+    var reportedTimeSpan = $('span[id="reportedTime"]');        
+
+    $("#container").append(player);
+    player.controls=true;
+    player.addEventListener('ended', function(x) {
+        playing=false;
+        playStopButton.html("►");
+        clearInterval(elapsedTimeIntervalId);
+    });
+
+
+     function play() {
+        playStopButton.html(!playing ? " ■ " : "►");
+
+        if (playing) {
+            player.stop();
+            playing = false;
+            clearInterval(elapsedTimeIntervalId);
+            return;
+        }
+        
+        player.src=$("input:radio[name=file]:checked").val();
+        player.play();
+        playing = true;
+        startRunningElapsedTime();
+    };
+
+     function startRunningElapsedTime() {
+        clearInterval(elapsedTimeIntervalId);
+        elapsedTime=0;
+        elapsedTimeSpan.html(elapsedTime);
+        elapsedTimeIntervalId = setInterval(function () { 
+                                                elapsedTimeSpan.html(elapsedTime++); 
+                                                reportedTimeSpan.html(player.currentTime);
+                                            }, 1000);
+    }
+</script>
+</body>
+</html>
