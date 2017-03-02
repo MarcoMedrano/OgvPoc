@@ -14,14 +14,14 @@
 <br>
 <div>
     <h2>Audio Files</h2><br>
-    <label><input type='radio' name='file' value='/res/mpthreetest.ogg' >mpthreetest.ogg</label><br>
-    <label><input type='radio' name='file' value='/res/Hydrate-Kenny_Beltrey.ogg' checked>Hydrate-Kenny_Beltrey.ogg</label><br>
+    <label><input type='radio' name='file' value='/res/example vorbis.ogg' >example vorbis.ogg</label><br>
+    <label><input type='radio' name='file' value='/res/example opus.opus' >example opus.opus</label><br>
     <br><h2>Video Files</h2><br>
     <label><input type='radio' name='file' value='/res/quantium.webm'>Quantium1  [WEBM] : no audio - VP8 24fps 5760x1080</label><br>
     <label><input type='radio' name='file' value='/res/quantium2.webm'>Quantium2  [WEBM] : no audio - VP8 2fps 5760x1080</label><br>
     <br>
     <label><input type='radio' name='file' value='/res/quantium4.webm'>Quantium4  [WEBM] : no audio - VP8 24fps 3840x720</label><br>
-    <label><input type='radio' name='file' value='/res/quantium3.webm'>Quantium3  [WEBM] : no audio - VP8 2fps 3840x720</label><br>
+    <label><input type='radio' name='file' value='/res/quantium3.webm' checked>Quantium3  [WEBM] : no audio - VP8 2fps 3840x720</label><br>
     <br>
     <label><input type='radio' name='file' value='/res/Time_Lapse_of_New_York_City.ogv' >Time_Lapse_of_New_York_City  [OGV]: </label><br>
     <!--<br>
@@ -40,11 +40,12 @@
 </div>
 <br><br>
 <button id='playstop' onclick="play()" type="button" autofocus="autofocus" style="padding: 5px; font-size: 140%;">►</button>
-<button id='speedDown' onclick="speedDown()" type="button" style="padding: 5px; font-size: 140%;">«</button>
+<button id='speedDown' type="button" style="padding: 5px; font-size: 140%;">«</button>
 <span id='speedValue'>100%</span>
-<button id='speedUp' onclick="speedUp()" type="button" style="padding: 5px; font-size: 140%;">»</button>
-<h4>Time:</h4><span id='elapsedTime'>0</span>s
-<h4>Reported Time By Player:</h4><span id='reportedTime'>0</span>s
+<button id='speedUp' type="button" style="padding: 5px; font-size: 140%;">»</button>
+<h4>Time:</h4><span id='elapsedTime'>0</span> s
+<h4>Reported Time By Player:</h4><span id='reportedTime'>0</span> s
+<h4>Delay :</h4><span id='delay'>0</span> %
 
 <script>
 //ffmpeg -i "Quantum - 5760 x 1080 Full Wall Footage (NAB)-zNDF-syynN0.webm" -vcodec libvpx -r2 quantium3.webm
@@ -62,8 +63,10 @@
     var speedDownButton = $('button[id="speedDown"]');
     var elapsedTimeSpan = $('span[id="elapsedTime"]');        
     var reportedTimeSpan = $('span[id="reportedTime"]');        
+    var delaySpan = $('span[id="delay"]');        
 
-    
+    speedUpButton.click(function(){ player.playbackRate += 0.25; speedValueSpan.html((player.playbackRate*100)+"%"); });
+    speedDownButton.click(function(){ player.playbackRate -= 0.25; speedValueSpan.html((player.playbackRate*100)+"%"); });
 
 
     function createPlayer(){
@@ -104,7 +107,8 @@
         elapsedTimeSpan.html(elapsedTime);
         elapsedTimeIntervalId = setInterval(function () { 
                                                 elapsedTimeSpan.html(elapsedTime++); 
-                                                reportedTimeSpan.html(player.currentTime);
+                                                reportedTimeSpan.html(Math.floor(player.currentTime*100)/100);
+                                                delaySpan.html(Math.floor(((elapsedTime-player.currentTime)/player.currentTime)*100));
                                             }, 1000);
     }
 </script>
