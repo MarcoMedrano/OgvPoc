@@ -6,9 +6,11 @@
     <title></title>
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 
-    <script src="node_modules/ogv/dist/ogv.js"></script>
+    <!--<script src="node_modules/ogv/dist/ogv.js"></script>
+    <script src="node_modules\ogv\dist\ogv-support.js"></script>-->
+    <script src="lastOgvFromSrc/ogv.js"></script>
+    <script src="lastOgvFromSrc\ogv-support.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
-    <script src="node_modules\ogv\dist\ogv-support.js"></script>
 </head>
 <body style="padding: 20px; font-family: 'Comic Sans MS'; font-size: 110%;">
 <br>
@@ -48,6 +50,7 @@
 <h4>Delay :</h4><span id='delay'>0</span> %
 
 <script>
+//youtube-dl -F https://www.youtube.com/watch?
 //ffmpeg -i "Quantum - 5760 x 1080 Full Wall Footage (NAB)-zNDF-syynN0.webm" -vcodec libvpx -r2 quantium3.webm
     if (!OGVCompat.supported('OGVPlayer')) { console.warn('OGV not supported') };
     var playing = false;
